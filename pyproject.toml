@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "farsi-phonetic"
+version = "0.1.0"
+description = ""
+authors = ["Mei Chen <meichen.mlc@gmail.com>"]
+readme = "README.md"
+packages = [{include = "farsi_phonetic"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.31.0"
+openai = "^1.10.0"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
