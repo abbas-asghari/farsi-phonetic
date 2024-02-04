@@ -55,12 +55,12 @@ if st.button('Translate ⇨ Finglish'):
         model="gpt-4-turbo-preview",
         messages=[{"role": "system", "content": "translate this to Farsi. Only state the farsi."}
             ,{"role": "user", "content": english}],
-        stream=True,
+        stream=False,
     )
     write_farsi = ""
     for chunk in farsi:
         if chunk.choices[0].delta.content is not None:
-            write_stream += chunk.choices[0].delta.content
+            write_farsi += chunk.choices[0].delta.content
     st.write(write_farsi)
 
     aud = text_to_speech(write_farsi)
