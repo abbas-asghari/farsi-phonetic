@@ -61,6 +61,7 @@ if st.button('Translate ⇨ Finglish'):
     for chunk in stream:
         if chunk.choices[0].delta.content is not None:
             write_stream += chunk.choices[0].delta.content
-
+    st.write(write_farsi)
+    
     aud = text_to_speech(write_farsi)
     st.audio(aud, format="audio/mp3", start_time=0)
