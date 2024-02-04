@@ -54,7 +54,7 @@ if st.button('Translate ⇨ Finglish'):
     farsi = client.chat.completions.create(
         model="gpt-4-turbo-preview",
         messages=[{"role": "system", "content": "translate this to Farsi. Only state the farsi."}
-            ,{"role": "user", "content": english}],
+            ,{"role": "user", "content": write_stream}],
         stream=True,
     )
     write_farsi = ""
