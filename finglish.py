@@ -55,7 +55,7 @@ if st.button('Translate ⇨ Finglish'):
         model="gpt-4-turbo-preview",
         messages=[{"role": "system", "content": "translate this to Farsi. Only state the farsi."}
             ,{"role": "user", "content": english}],
-        stream=False,
+        stream=True,
     )
     write_farsi = ""
     for chunk in farsi:
