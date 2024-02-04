@@ -9,32 +9,10 @@ from _audio import text_to_speech
 load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
-st.title('Finglish ⇨ English Translator')
-phonetic = st.text_input('Enter farsi phonetic (word or phrase) to translate to English')
-if st.button('Translate ⇨ English'):
-
-    client = OpenAI(
-        api_key=OPENAI_API_KEY,
-    )
-    stream = client.chat.completions.create(
-        model="gpt-4-turbo-preview",
-        messages=[{"role": "system", "content": "help me translate the Farsi phonetics to english. Only state the english meaning."}
-            ,{"role": "user", "content": phonetic}],
-        stream=True,
-    )
-    write_stream = ""
-    for chunk in stream:
-        if chunk.choices[0].delta.content is not None:
-            write_stream += chunk.choices[0].delta.content
-    st.write(write_stream)
-
-
-st.divider()
-
 
 st.title('English ⇨ Finglish Translator')
 english = st.text_input('Enter English (word or phrase) to translate to Finglish')
-if st.button('Translate ⇨ Finglish'):
+if st.button('Translate ⇨ Finglish') or english:
     client = OpenAI(
         api_key=OPENAI_API_KEY,
     )
@@ -65,3 +43,25 @@ if st.button('Translate ⇨ Finglish'):
 
     aud = text_to_speech(write_farsi)
     st.audio(aud, format="audio/mp3", start_time=0)
+
+st.divider()
+
+
+st.title('Finglish ⇨ English Translator')
+phonetic = st.text_input('Enter farsi phonetic (word or phrase) to translate to English')
+if st.button('Translate ⇨ English') or phonetic:
+
+    client = OpenAI(
+        api_key=OPENAI_API_KEY,
+    )
+    stream = client.chat.completions.create(
+        model="gpt-4-turbo-preview",
+        messages=[{"role": "system", "content": "help me translate the Farsi phonetics to english. Only state the english meaning."}
+            ,{"role": "user", "content": phonetic}],
+        stream=True,
+    )
+    write_stream = ""
+    for chunk in stream:
+        if chunk.choices[0].delta.content is not None:
+            write_stream += chunk.choices[0].delta.content
+    st.write(write_stream)
