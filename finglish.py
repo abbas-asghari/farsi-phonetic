@@ -49,7 +49,18 @@ if st.button('Translate ⇨ Finglish'):
     for chunk in stream:
         if chunk.choices[0].delta.content is not None:
             write_stream += chunk.choices[0].delta.content
-    
     st.write(write_stream)
-    aud = text_to_speech(write_stream)
+
+    farsi = client.chat.completions.create(
+        model="gpt-4-turbo-preview",
+        messages=[{"role": "system", "content": "translate this to Farsi. Only state the farsi."}
+            ,{"role": "user", "content": english}],
+        stream=True,
+    )
+    write_farsi = ""
+    for chunk in stream:
+        if chunk.choices[0].delta.content is not None:
+            write_stream += chunk.choices[0].delta.content
+
+    aud = text_to_speech(write_farsi)
     st.audio(aud, format="audio/mp3", start_time=0)
