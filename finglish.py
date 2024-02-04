@@ -3,10 +3,11 @@ import streamlit as st
 from openai import OpenAI
 from dotenv import load_dotenv
 
+from _audio import text_to_speech
+
 # Load environment variables
 load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-
 
 st.title('Finglish ⇨ English Translator')
 phonetic = st.text_input('Enter farsi phonetic (word or phrase) to translate to English')
@@ -50,3 +51,5 @@ if st.button('Translate ⇨ Finglish'):
             write_stream += chunk.choices[0].delta.content
     
     st.write(write_stream)
+    aud = text_to_speech(write_stream)
+    st.audio(aud, format="audio/mp3", start_time=0)
