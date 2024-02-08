@@ -40,9 +40,9 @@ if st.button('Translate ⇨ Finglish') or english:
         if chunk.choices[0].delta.content is not None:
             write_farsi += chunk.choices[0].delta.content
     st.write(write_farsi)
-
-    aud = text_to_speech(write_farsi)
-    st.audio(aud, format="audio/mp3", start_time=0)
+    if st.button('Speak'):
+        aud = text_to_speech(write_stream)
+        st.audio(aud, format="audio/mp3", start_time=0)
 
 st.divider()
 
