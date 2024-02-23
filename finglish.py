@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 
 from _audio import text_to_speech
 
+st.session_state['eng_word'] = ""
+
 # Load environment variables
 load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
@@ -36,12 +38,16 @@ if st.button('Translate ⇨ Finglish') or english:
         stream=True,
     )
     write_farsi = ""
+
     for chunk in farsi:
         if chunk.choices[0].delta.content is not None:
             write_farsi += chunk.choices[0].delta.content
     st.write(write_farsi)
+    st.session_state['eng_word'] = write_farsi
+
+    # Audio Gen
     if st.button('Speak'):
-        aud = text_to_speech(write_stream)
+        aud = text_to_speech(st.session_state['eng_word'])
         st.audio(aud, format="audio/mp3", start_time=0)
 
 st.divider()
