@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from _audio import text_to_speech
 
-st.session_state['eng_word'] = ""
+st.session_state['farsi_word'] = ""
 
 # Load environment variables
 load_dotenv()
@@ -43,12 +43,15 @@ if st.button('Translate ⇨ Finglish') or english:
         if chunk.choices[0].delta.content is not None:
             write_farsi += chunk.choices[0].delta.content
     st.write(write_farsi)
-    st.session_state['eng_word'] = write_farsi
+    st.session_state['farsi_word'] = write_farsi
 
     # Audio Gen
     if st.button('Speak'):
-        aud = text_to_speech(st.session_state['eng_word'])
-        st.audio(aud, format="audio/mp3", start_time=0)
+        try:
+            aud = text_to_speech(st.session_state['farsi_word'])
+            st.audio(aud, format="audio/mp3", start_time=0)
+        except Exception as e:
+            st.error(f"Failed to generate speech: {e}")
 
 st.divider()
 
