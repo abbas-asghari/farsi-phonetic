@@ -12,7 +12,7 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 
-st.title('English ⇨ Finglish Translator')
+st.title('English ⇨ Farsi Translator')
 english = st.text_input('Enter English (word or phrase) to translate to Finglish')
 if st.button('Translate ⇨ Finglish') or english:
     client = OpenAI(
@@ -56,7 +56,7 @@ if st.button('Translate ⇨ Finglish') or english:
 st.divider()
 
 
-st.title('Finglish ⇨ English Translator')
+st.title('Farsi ⇨ English Translator')
 phonetic = st.text_input('Enter farsi phonetic (word or phrase) to translate to English')
 if st.button('Translate ⇨ English') or phonetic:
 
